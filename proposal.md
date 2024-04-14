@@ -1,5 +1,4 @@
-# final-project-rubenafrouzi
-ANGM 2305 final project
+# 2D Game proposal
 
 ## Repository
 <https://github.com/rubenafrouzi/final-project-rubenafrouzi.git>

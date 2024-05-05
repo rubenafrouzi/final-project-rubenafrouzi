@@ -2,6 +2,10 @@ import os
 import sys
 import math
 import random
+<<<<<<< HEAD
+=======
+
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
 import pygame
 
 from scripts.utils import load_image, load_images, Animation
@@ -11,6 +15,7 @@ from scripts.clouds import Clouds
 from scripts.particle import Particle
 from scripts.spark import Spark
 
+<<<<<<< HEAD
 class GameIntro:
     def __init__(self):
         pygame.init()
@@ -61,6 +66,8 @@ class GameIntro:
             self.clock.tick(60)
 
 
+=======
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
 class Game:
     def __init__(self):
         pygame.init()
@@ -69,8 +76,16 @@ class Game:
         self.screen = pygame.display.set_mode((1920, 1080))
         self.display = pygame.Surface((320, 170), pygame.SRCALPHA)
         self.display_2 = pygame.Surface((320, 170))
+<<<<<<< HEAD
         self.clock = pygame.time.Clock()
         self.movement = [False, False, False, False]  # Updated to include up and down movement
+=======
+
+        self.clock = pygame.time.Clock()
+        
+        self.movement = [False, False]
+        
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
         self.assets = {
             'decor': load_images('tiles/decor'),
             'grass': load_images('tiles/grass'),
@@ -92,7 +107,10 @@ class Game:
             'projectile': load_image('projectile.png'),
         }
         
+<<<<<<< HEAD
         # Load sounds
+=======
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
         self.sfx = {
             'jump': pygame.mixer.Sound('data/sfx/jump.wav'),
             'dash': pygame.mixer.Sound('data/sfx/dash.wav'),
@@ -101,13 +119,17 @@ class Game:
             'ambience': pygame.mixer.Sound('data/sfx/ambience.wav'),
         }
         
+<<<<<<< HEAD
         # Set sound volumes
+=======
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
         self.sfx['ambience'].set_volume(0.2)
         self.sfx['shoot'].set_volume(0.4)
         self.sfx['hit'].set_volume(0.8)
         self.sfx['dash'].set_volume(0.3)
         self.sfx['jump'].set_volume(0.7)
         
+<<<<<<< HEAD
         # Initialize clouds
         self.clouds = Clouds(self.assets['clouds'], count=16)
         
@@ -135,6 +157,22 @@ class Game:
         self.tilemap.load('data/maps/' + str(map_id) + '.json')
         
         # Initialize leaf spawners and enemies
+=======
+        self.clouds = Clouds(self.assets['clouds'], count=16)
+        
+        self.player = Player(self, (50, 50), (8, 15))
+        
+        self.tilemap = Tilemap(self, tile_size=16)
+        
+        self.level = 0
+        self.load_level(self.level)
+        
+        self.screenshake = 0
+        
+    def load_level(self, map_id):
+        self.tilemap.load('data/maps/' + str(map_id) + '.json')
+        
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
         self.leaf_spawners = []
         for tree in self.tilemap.extract([('large_decor', 2)], keep=True):
             self.leaf_spawners.append(pygame.Rect(4 + tree['pos'][0], 4 + tree['pos'][1], 23, 13))
@@ -171,11 +209,16 @@ class Game:
             if not len(self.enemies):
                 self.transition += 1
                 if self.transition > 30:
+<<<<<<< HEAD
                     if self.level == len(os.listdir('data/maps')) - 1:  # Check if it's the last level
                         self.victory = True  # Set victory to True if it's the last level
                     else:
                         self.level = min(self.level + 1, len(os.listdir('data/maps')) - 1)
                         self.load_level(self.level)
+=======
+                    self.level = min(self.level + 1, len(os.listdir('data/maps')) - 1)
+                    self.load_level(self.level)
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
             if self.transition < 0:
                 self.transition += 1
             
@@ -207,7 +250,11 @@ class Game:
                     self.enemies.remove(enemy)
             
             if not self.dead:
+<<<<<<< HEAD
                 self.player.update(self.tilemap, (self.movement[1] - self.movement[0], self.movement[3] - self.movement[2]))  # Pass up and down movement
+=======
+                self.player.update(self.tilemap, (self.movement[1] - self.movement[0], 0))
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
                 self.player.render(self.display, offset=render_scroll)
             
             # [[x, y], direction, timer]
@@ -270,6 +317,7 @@ class Game:
                             self.sfx['jump'].play()
                     if event.key == pygame.K_SPACE:
                         self.player.dash()
+<<<<<<< HEAD
                     if event.key == pygame.K_r:
                         self.load_level(self.level)  # Restart level when "R" key is pressed
                     if event.key == pygame.K_LEFT:  # Move to the previous level
@@ -279,15 +327,21 @@ class Game:
                         self.level = min(self.level + 1, len(os.listdir('data/maps')) - 1)
                         self.load_level(self.level)
             
+=======
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_a:
                         self.movement[0] = False
                     if event.key == pygame.K_d:
                         self.movement[1] = False
+<<<<<<< HEAD
                     if event.key == pygame.K_w:
                         self.movement[2] = False
                     if event.key == pygame.K_s:
                         self.movement[3] = False
+=======
+
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
                         
             if self.transition:
                 transition_surf = pygame.Surface(self.display.get_size())
@@ -301,6 +355,7 @@ class Game:
             self.screen.blit(pygame.transform.scale(self.display_2, self.screen.get_size()), screenshake_offset)
             pygame.display.update()
             self.clock.tick(60)
+<<<<<<< HEAD
             
             if self.victory:  # Display victory message if victory is achieved
                 self.screen.fill((0, 0, 0))
@@ -318,3 +373,7 @@ if __name__ == "__main__":
     intro.run()
     main_game = Game()
     main_game.run()
+=======
+
+Game().run()
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730

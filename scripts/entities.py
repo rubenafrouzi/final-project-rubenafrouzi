@@ -140,6 +140,7 @@ class Player(PhysicsEntity):
     def __init__(self, game, pos, size):
         super().__init__(game, 'player', pos, size)
         self.air_time = 0
+<<<<<<< HEAD
         self.jumps = 2  # Change this to 2 to enable double jump
         self.wall_slide = False
         self.dashing = 0
@@ -153,6 +154,26 @@ class Player(PhysicsEntity):
             self.air_time = 0
             self.jumps = 2  # Reset jumps when player lands on the ground
 
+=======
+        self.jumps = 1
+        self.wall_slide = False
+        self.dashing = 0
+    
+    def update(self, tilemap, movement=(0, 0)):
+        super().update(tilemap, movement=movement)
+        
+        self.air_time += 1
+        
+        if self.air_time > 120:
+            if not self.game.dead:
+                self.game.screenshake = max(16, self.game.screenshake)
+            self.game.dead += 1
+        
+        if self.collisions['down']:
+            self.air_time = 0
+            self.jumps = 1
+            
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
         self.wall_slide = False
         if (self.collisions['right'] or self.collisions['left']) and self.air_time > 4:
             self.wall_slide = True
@@ -162,7 +183,11 @@ class Player(PhysicsEntity):
             else:
                 self.flip = True
             self.set_action('wall_slide')
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
         if not self.wall_slide:
             if self.air_time > 4:
                 self.set_action('jump')
@@ -170,7 +195,11 @@ class Player(PhysicsEntity):
                 self.set_action('run')
             else:
                 self.set_action('idle')
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
         if abs(self.dashing) in {60, 50}:
             for i in range(20):
                 angle = random.random() * math.pi * 2
@@ -187,16 +216,28 @@ class Player(PhysicsEntity):
                 self.velocity[0] *= 0.1
             pvelocity = [abs(self.dashing) / self.dashing * random.random() * 3, 0]
             self.game.particles.append(Particle(self.game, 'particle', self.rect().center, velocity=pvelocity, frame=random.randint(0, 7)))
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
         if self.velocity[0] > 0:
             self.velocity[0] = max(self.velocity[0] - 0.1, 0)
         else:
             self.velocity[0] = min(self.velocity[0] + 0.1, 0)
+<<<<<<< HEAD
 
     def render(self, surf, offset=(0, 0)):
         if abs(self.dashing) <= 50:
             super().render(surf, offset=offset)
 
+=======
+    
+    def render(self, surf, offset=(0, 0)):
+        if abs(self.dashing) <= 50:
+            super().render(surf, offset=offset)
+            
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
     def jump(self):
         if self.wall_slide:
             if self.flip and self.last_movement[0] < 0:
@@ -211,16 +252,29 @@ class Player(PhysicsEntity):
                 self.air_time = 5
                 self.jumps = max(0, self.jumps - 1)
                 return True
+<<<<<<< HEAD
         elif self.jumps > 0:  # Check if there are jumps remaining
+=======
+                
+        elif self.jumps:
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
             self.velocity[1] = -3
             self.jumps -= 1
             self.air_time = 5
             return True
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730
     def dash(self):
         if not self.dashing:
             self.game.sfx['dash'].play()
             if self.flip:
                 self.dashing = -60
             else:
+<<<<<<< HEAD
                 self.dashing = 60
+=======
+                self.dashing = 60
+>>>>>>> a983a5f25776e4ea825b7da092cfa41fb1205730

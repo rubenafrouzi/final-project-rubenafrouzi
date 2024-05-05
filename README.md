@@ -40,3 +40,10 @@ Minimal Viable Outcome:
 - Week N (Final)
   1. Particle effects and overall gamefeel/polish
   2. 1 full medium sized level finished
+
+
+Tutorial: https://youtu.be/2gABYM5M0ww?si=lJAGYmhlAa7bmuI6
+
+Controls: 
+Movement: WASD
+Attack: Space 
